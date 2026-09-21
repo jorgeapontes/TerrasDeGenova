@@ -1,0 +1,26 @@
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+
+# Ambiente local
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencias (caso algum dia entre alguma ferramenta de build)
+node_modules/
+
+# Imagens originais baixadas do site antigo - ficam so localmente, como
+# referencia/backup. Nao precisam ir para o repositorio: as versoes ja
+# tratadas (recortadas, otimizadas) usadas pelo site estao em img/, fora
+# desta pasta.
+img/original/

@@ -1,0 +1,79 @@
+# ==========================================================================
+# Terras de Genova - configuracao Apache para hospedagem estatica
+# ==========================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Remove ".html" da URL, se algum dia outras paginas .html forem
+  # adicionadas (hoje o site tem so a index) - acessar /pagina.html
+  # redireciona para /pagina, sem redirecionar arquivos/pastas reais.
+  RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # Nunca reescrever arquivos/pastas que ja existem fisicamente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # /pagina -> /pagina.html (permite usar URLs sem extensao internamente)
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+)$ $1.html [L]
+
+  # Remove "index.html" explicito da URL (evita conteudo duplicado)
+  RewriteCond %{THE_REQUEST} /index\.html [NC]
+  RewriteRule ^(.*)index\.html$ /$1 [R=301,L,NC]
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Seguranca basica
+# --------------------------------------------------------------------------
+
+Options -Indexes
+Options -FollowSymLinks +SymLinksIfOwnerMatch
+
+<FilesMatch "(^\.env|\.gitignore|\.git.*|composer\.(json|lock)|package(-lock)?\.json|\.ps1|\.htpasswd)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType image/webp .webp
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Cache de estaticos
+# --------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Compressao
+# --------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Pagina de erro 404 customizada
+# --------------------------------------------------------------------------
+ErrorDocument 404 /404.html

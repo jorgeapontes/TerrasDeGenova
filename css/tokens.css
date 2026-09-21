@@ -1,0 +1,85 @@
+/*
+  Identidade visual própria do Terras de Gênova. Empreendimento da Città,
+  mas com paleta e estilo distintos do site institucional da Città — verde
+  natural (o parque vizinho) e cinza neutro de destaque, em vez do azul
+  corporativo. Cantos mais arredondados e elementos mais suaves,
+  propositalmente menos "corporativo clean".
+*/
+
+:root {
+  /* Verde principal - identidade do Terras de Gênova */
+  --color-primary: #2f9169;
+  --color-primary-hover: #257552;
+  --color-primary-ink: #17402e;
+
+  /* Cinza neutro - cor de destaque/CTA secundário */
+  --color-accent: #9a9384;
+  --color-accent-hover: #857f6f;
+  --color-accent-ink: #3a362c;
+
+  /* Verde do WhatsApp com tom proprio, ligeiramente mais vivo que o verde
+     principal, para o botao continuar reconhecivel como WhatsApp */
+  --color-whatsapp: #25b660;
+  --color-whatsapp-hover: #1f9750;
+  --color-whatsapp-ink: #14532e;
+
+  --color-ink: #211d17;
+  --color-body: #4a4539;
+  --color-muted: #6b6558;
+  --color-subtle: #948c7a;
+  --color-border: #e6e0d4;
+  --color-border-strong: #d2c9b5;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7f3ea;
+  --color-surface-dark: #14261e;
+
+  --font-heading: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --font-body: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+
+  --fs-hero: clamp(2.25rem, 1.4rem + 3.5vw, 3.75rem);
+  --fs-h1: clamp(1.875rem, 1.4rem + 1.8vw, 2.75rem);
+  --fs-h2: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --fs-h3: clamp(1.2rem, 1.05rem + 0.6vw, 1.5rem);
+  --fs-lead: clamp(1.05rem, 1rem + 0.3vw, 1.25rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-micro: 0.75rem;
+
+  --lh-tight: 1.15;
+  --lh-heading: 1.25;
+  --lh-body: 1.65;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+  --space-12: 6rem;
+  --space-16: 8rem;
+
+  --container-max: 1280px;
+  --container-pad: clamp(1.25rem, 4vw, 3rem);
+
+  /* Escala de raio bem mais arredondada que o site institucional da Città
+     (que usa 2-8px de propósito) - aqui é parte da identidade própria */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 26px;
+  --radius-full: 999px;
+
+  /* Raio dos botões: nem em pílula (radius-full), nem reto - um meio-termo
+     elegante, suave o bastante sem parecer bolha nem cortado */
+  --radius-btn: 12px;
+
+  --shadow-sm: 0 2px 6px rgba(33, 29, 23, 0.08);
+  --shadow-md: 0 12px 28px -10px rgba(33, 29, 23, 0.22);
+  --shadow-lg: 0 24px 52px -16px rgba(33, 29, 23, 0.28);
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 150ms;
+  --dur-base: 280ms;
+  --dur-slow: 450ms;
+}
