@@ -280,7 +280,10 @@ strong {
 
 .nav-toggle {
   display: none;
-  padding: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .nav-toggle .icon {
@@ -296,7 +299,18 @@ strong {
     display: none;
   }
   .nav-toggle {
-    display: block;
+    display: inline-flex;
+  }
+  /* Sem espaco para o botao de WhatsApp por extenso ao lado da logo e do
+     menu - vira um icone circular, do tamanho de um alvo de toque (44px) */
+  .site-header__whatsapp {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+  }
+  .site-header__whatsapp-label {
+    display: none;
   }
 }
 
@@ -306,6 +320,7 @@ strong {
   z-index: 60;
   background: #fff;
   padding: var(--space-5);
+  overflow-y: auto;
   opacity: 0;
   transform: translateY(-8px);
   pointer-events: none;
@@ -328,6 +343,17 @@ strong {
 .mobile-menu__top img {
   height: 40px;
   width: auto;
+}
+
+/* Alvo de toque de 44px mesmo com o icone visualmente menor (26px) -
+   antes so o icone era clicavel, bem mais dificil de acertar que o
+   botao de abrir o menu (.nav-toggle) */
+.mobile-menu__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .mobile-menu__close .icon {
@@ -365,7 +391,7 @@ strong {
    ========================================================================== */
 .hero {
   position: relative;
-  min-height: min(88vh, 760px);
+  min-height: min(88svh, 760px);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -503,6 +529,70 @@ strong {
   margin-inline: auto;
 }
 
+/* Tracinhos indicando a posicao no carrossel mobile (ver media query
+   abaixo) - escondidos no desktop, onde os 4 cards aparecem lado a lado */
+.feature-carousel__dots {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-6);
+}
+
+.feature-carousel__dot {
+  width: 34px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-carousel__dot::before {
+  content: '';
+  display: block;
+  width: 22px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  transition: background var(--dur-base) var(--ease-standard), width var(--dur-base) var(--ease-standard);
+}
+
+.feature-carousel__dot.is-active::before {
+  background: var(--color-primary);
+  width: 30px;
+}
+
+@media (max-width: 640px) {
+  /* Em vez dos 4 cards empilhados (rolagem vertical), um carrossel
+     horizontal por toque - um card por vez, com scroll-snap nativo */
+  .feature-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .feature-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .feature-card {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+  }
+  .feature-carousel__dots {
+    display: flex;
+  }
+  /* Os cards ficam "cortados" pelo overflow horizontal ate serem
+     deslizados, o que bagunçava a animacao de entrada ao rolar a pagina -
+     no carrossel mobile eles simplesmente aparecem prontos */
+  .js-reveal-ready .feature-grid [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ==========================================================================
    Sobre o empreendimento
    ========================================================================== */
@@ -537,8 +627,11 @@ strong {
     width: 220px;
     margin-inline: auto;
   }
+  /* So o titulo/emblema centralizam - paragrafo corrido centralizado fica
+     com bordas irregulares e cansa a leitura, mesmo com o bloco centrado */
   .about-genova p {
     margin-inline: auto;
+    text-align: left;
   }
 }
 
@@ -883,6 +976,7 @@ strong {
   }
   .footer-about p {
     margin-inline: auto;
+    text-align: left;
   }
 }
 
@@ -952,8 +1046,10 @@ strong {
    ========================================================================== */
 .whatsapp-float {
   position: fixed;
-  right: var(--space-5);
-  bottom: var(--space-5);
+  /* max() com env() evita que o botao fique colado na barra de gestos de
+     iPhones com "notch" - cai de volta pro espacamento padrao nos demais */
+  right: max(var(--space-5), env(safe-area-inset-right));
+  bottom: max(var(--space-5), env(safe-area-inset-bottom));
   z-index: 40;
   display: flex;
   align-items: center;
@@ -1032,12 +1128,25 @@ strong {
 
 @media (max-width: 640px) {
   .hero {
-    min-height: 92vh;
+    min-height: 92svh;
   }
   .hero__content {
     max-width: none;
   }
   .hero__scrim {
     background: rgba(10, 30, 22, 0.65);
+  }
+  /* Larguras diferentes faziam os dois botoes quebrarem tortos - melhor
+     empilhar de proposito, ocupando a largura toda */
+  .hero__actions {
+    flex-direction: column;
+  }
+  .hero__actions .btn {
+    width: 100%;
+  }
+  /* Tarja de numeros logo apos a hero - no mobile fica cortada/apertada
+     entre a imagem e a proxima secao; mantemos so no desktop */
+  .stat-strip {
+    display: none;
   }
 }

@@ -133,6 +133,49 @@
   }
 
   /* ---------------------------------------------------------------------- */
+  /* Carrossel de "infraestrutura" no mobile - um card por vez (ver         */
+  /* scroll-snap no CSS), com tracinhos embaixo indicando a posicao. No     */
+  /* desktop os cards ficam lado a lado (grid normal) e os tracinhos somem. */
+  /* ---------------------------------------------------------------------- */
+  function initFeatureCarousel() {
+    var track = document.querySelector('[data-feature-track]');
+    var dotsHolder = document.querySelector('[data-feature-dots]');
+    if (!track || !dotsHolder) return;
+
+    var cards = Array.prototype.slice.call(track.children);
+    var dots = Array.prototype.slice.call(dotsHolder.children);
+    if (!cards.length || !dots.length) return;
+
+    function setActive(index) {
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle('is-active', i === index);
+      });
+    }
+
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        cards[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      });
+    });
+
+    if (!('IntersectionObserver' in window)) return;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            var index = cards.indexOf(entry.target);
+            if (index > -1) setActive(index);
+          }
+        });
+      },
+      { root: track, threshold: [0.6] }
+    );
+
+    cards.forEach(function (card) { observer.observe(card); });
+  }
+
+  /* ---------------------------------------------------------------------- */
   /* Ano do rodape                                                           */
   /* ---------------------------------------------------------------------- */
   function initFooterYear() {
@@ -144,6 +187,7 @@
     initMenu();
     initReveal();
     initCarousels();
+    initFeatureCarousel();
     initFooterYear();
   }
 

@@ -17,7 +17,7 @@
 <meta name="theme-color" content="#03538f">
 <link rel="icon" href="/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/img/favicon-180.png">
-<link rel="preload" as="image" href="/img/hero-parque.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="/img/hero-parque.jpg" imagesrcset="/img/hero-parque-mobile.jpg 960w, /img/hero-parque.jpg 1920w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -51,9 +51,9 @@
         <svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#phone"></use></svg>
         (11) 4492-4980
       </a>
-      <a href="https://wa.me/5511997520379" class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">
+      <a href="https://wa.me/5511997520379" class="btn btn--whatsapp site-header__whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
         <svg class="icon" width="18" height="18" aria-hidden="true"><use href="/img/icons.svg#whatsapp"></use></svg>
-        WhatsApp
+        <span class="site-header__whatsapp-label">WhatsApp</span>
       </a>
       <button type="button" class="nav-toggle" data-menu-open aria-label="Abrir menu" aria-expanded="false">
         <svg class="icon" aria-hidden="true"><use href="/img/icons.svg#menu"></use></svg>
@@ -91,7 +91,7 @@
 
   <section class="hero" id="topo">
     <div class="hero__media">
-      <img src="/img/hero-parque.jpg" alt="Lago do Parque do Engordadouro, ao lado do loteamento Terras de Gênova, em Jundiaí/SP" width="1920" height="1080" fetchpriority="high">
+      <img src="/img/hero-parque.jpg" srcset="/img/hero-parque-mobile.jpg 960w, /img/hero-parque.jpg 1920w" sizes="100vw" alt="Lago do Parque do Engordadouro, ao lado do loteamento Terras de Gênova, em Jundiaí/SP" width="1920" height="1080" fetchpriority="high">
       <div class="hero__scrim"></div>
     </div>
     <div class="container">
@@ -137,7 +137,7 @@
         <p class="section__eyebrow">Infraestrutura completa</p>
         <h2>Completo e tranquilo, tudo o que você procura em um só lugar</h2>
       </div>
-      <div class="feature-grid" data-reveal-group>
+      <div class="feature-grid" data-feature-track data-reveal-group>
         <article class="feature-card" data-reveal>
           <div class="feature-card__media">
             <img src="/img/playground.jpg" width="219" height="219" alt="Playground do loteamento Terras de Gênova" loading="lazy">
@@ -166,6 +166,12 @@
           <h3>Portaria</h3>
           <p>Entrada com arquitetura diferenciada e monitoramento 24 horas.</p>
         </article>
+      </div>
+      <div class="feature-carousel__dots" data-feature-dots>
+        <button type="button" class="feature-carousel__dot is-active" aria-label="Ver Playground"></button>
+        <button type="button" class="feature-carousel__dot" aria-label="Ver Quadras"></button>
+        <button type="button" class="feature-carousel__dot" aria-label="Ver Jardim"></button>
+        <button type="button" class="feature-carousel__dot" aria-label="Ver Portaria"></button>
       </div>
     </div>
   </section>
