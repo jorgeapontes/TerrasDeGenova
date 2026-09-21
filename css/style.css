@@ -314,15 +314,40 @@ strong {
   }
 }
 
-.mobile-menu {
+/* Fundo escurecido atras do painel - cobre a tela toda, indica que o
+   resto da pagina esta inativo, e fecha o menu se tocado */
+.mobile-menu-backdrop {
   position: fixed;
   inset: 0;
+  z-index: 59;
+  background: rgba(10, 30, 22, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+
+.mobile-menu-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Painel do menu: desce do topo cobrindo so ate metade da tela (em vez de
+   tela cheia), com cantos arredondados embaixo pra parecer uma "gaveta" */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 60;
+  max-height: 50svh;
   background: #fff;
   padding: var(--space-5);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   overflow-y: auto;
+  text-align: center;
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-12px);
   pointer-events: none;
   transition: opacity var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard);
 }
@@ -337,7 +362,7 @@ strong {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
 }
 
 .mobile-menu__top img {
@@ -364,11 +389,11 @@ strong {
 .mobile-menu__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.4rem;
-  margin-bottom: var(--space-8);
+  font-size: 1.2rem;
+  margin-bottom: var(--space-6);
 }
 
 .mobile-menu__actions {

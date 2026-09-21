@@ -12,6 +12,7 @@
   function initMenu() {
     var openBtn = document.querySelector('[data-menu-open]');
     var menu = document.querySelector('[data-mobile-menu]');
+    var backdrop = document.querySelector('[data-menu-backdrop]');
     if (!openBtn || !menu) return;
 
     var closeTargets = menu.querySelectorAll('[data-menu-close], a');
@@ -19,12 +20,14 @@
     function closeMenu() {
       openBtn.setAttribute('aria-expanded', 'false');
       menu.classList.remove('is-open');
+      if (backdrop) backdrop.classList.remove('is-open');
       document.body.style.overflow = '';
     }
 
     function openMenu() {
       openBtn.setAttribute('aria-expanded', 'true');
       menu.classList.add('is-open');
+      if (backdrop) backdrop.classList.add('is-open');
       document.body.style.overflow = 'hidden';
     }
 
@@ -36,6 +39,10 @@
     closeTargets.forEach(function (el) {
       el.addEventListener('click', closeMenu);
     });
+
+    if (backdrop) {
+      backdrop.addEventListener('click', closeMenu);
+    }
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && openBtn.getAttribute('aria-expanded') === 'true') {
